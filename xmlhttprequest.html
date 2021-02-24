@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+
+    <script type="text/javascript" th:inline="javascript">
+    function redirectReplyPage() {
+        var formData = new FormData();
+        formData.append('idx', "[(${board.idx})]");
+        var request = new XMLHttpRequest();
+        /*<![CDATA[*/
+        request.open("POST", "/board/[(${boardType})]/reply");
+        /* ]] */
+        request.send(formData);
+
+        // TODO xmlhttpRequest 삭제, form 만들어서 idx 넣고 form post submit
+    }
+    /**
+        XMLHttpRequest는 ajax의 원전이 되는 자료타입으로, 기본적으로 ajax 통신과 동일하다. return은 ajax처럼 @responsebody와 동일하게 동작한다
+
+
+        CDATA는 thymeleaf 템플릿 html페이지 javascript에서 parameter값을 사용하고자 할 때 사용된다
+        script에 타임리프 문법으로 javascript인것을 명시하고, [[]] / []와 ()를 묶어 사용한다
+        [[]] 안에 있는 model parameter는 escape 문자까지 앞뒤로 쌍따옴표를 붙여서 생성된다
+        []는 escape 문자를 처리하지 않고 쌍따옴표를 붙여서 생성되며
+        ()는 앞뒤로 쌍따옴표를 붙이지 않고 생성된다
+    */
+    </script>
