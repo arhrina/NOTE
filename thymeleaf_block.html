@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+  <script type="text/javascript" th:inline="javascript"> // 타임리프는 th:inline을 가지고 있어야, CDATA를 활용해 model param을 활용할 수 있다
+    [[${model}]] // 앞뒤로 ""를 붙여서 model 변수값을 가져오는 CDATA
+    [${model}] // 앞뒤에 ""가 없이 model 변수값을 가져오는 CDATA
+    
+    
+    
+    var tbody = $("#tbody");
+    tbody.empty();
+    if(jsonData.content.length == 0) {
+      innerHTML += '<tr>\n' +
+      '<td className="text-center" colSpan="5">검색된 결과가 없습니다\n' +
+      '</td>\n' +
+      '</tr>';
+    };
+    tbody.append(innerHTML);
+    // innerHTML을 활용해 tbody에 DOM을 만들어서 붙인다
+  </script>
+  
+  <body>
+    <td th:with="url='/board/' + ${boardType} + '/view'" th:if="${board.groupLayer > 0}" th:each="layer : ${board.groupLayer}"> <!-- 자바에서 pathVariable로 받는 boardType을 활용 -->
+      <th:block th:each="num : ${#numbers.sequence(1, layer)}" th:text="'&emsp;'"></th:block> <!-- th:block으로 numbers.sequece를 활용해 layer의 숫자만큼 tap(&emsp;)을 반복하여 앞에 세팅 -->
+      <a th:queryStringLink="@{${url}(idx=${board.idx})}" href="view" th:text="'└ RE:'+${board.title}">게시물 제목</a>
+      <!-- 
+
+thymeleaf의 표현식 정리
+
+Variable Expressions: ${...}
+Selection Variable Expressions: *{...}
+Message Expressions: #{...}
+Link URL Expressions: @{...}
+Fragment Expressions: ~{...}
+      -->
+    </td>
+  </body>
+  
+  
+</html>
